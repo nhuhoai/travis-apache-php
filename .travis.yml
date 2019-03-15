@@ -1,19 +1,24 @@
 language: php
 dist: xenial
 
-matrix:
-  include:
-    - php: 5.6
-    - php: 7.0
-    - php: 7.1
-    - php: 7.2
-
 jobs:
   include:
     - stage: syntax
+      matrix:
+        include:
+          - php: 5.6
+          - php: 7.0
+          - php: 7.1
+          - php: 7.2
       before_script: php --version
       script: find src -name "*.php" -print0 | xargs -0 -n1 php -l
     - stage: apache
+      matrix:
+        include:
+          - php: 5.6
+          - php: 7.0
+          - php: 7.1
+          - php: 7.2
       before_script:
         - sudo apt-get update
         - sudo apt-get install apache2 libapache2-mod-fastcgi
@@ -27,7 +32,11 @@ jobs:
         - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
         - sudo service apache2 restart
       script:
-        - res=$(php src/test.php) & echo $res
-        - res=$(php src/index.php) & echo $res
-        - res=$(curl http://127.0.0.1/src/test.php) & echo $res
-        - res=$(curl http://127.0.0.1/src/index.php) & echo $res
+        - res=$(php src/test.php)
+        - echo $res
+        - res=$(php src/index.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/test.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/index.php)
+        - echo $res
