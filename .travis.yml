@@ -27,7 +27,14 @@ jobs:
         - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
-        - ./ci/apache-test.sh
+        - res=$(php src/test.php)
+        - echo $res
+        - res=$(php src/index.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/test.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/index.php)
+        - echo $res
     - stage: apache
       php: 7.0
       before_script:
@@ -35,7 +42,14 @@ jobs:
         - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
-        - ./ci/apache-test.sh
+        - res=$(php src/test.php)
+        - echo $res
+        - res=$(php src/index.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/test.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/index.php)
+        - echo $res
     - stage: apache
       php: 7.1
       before_script:
@@ -43,7 +57,14 @@ jobs:
         - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
-        - ./ci/apache-test.sh
+        - res=$(php src/test.php)
+        - echo $res
+        - res=$(php src/index.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/test.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/index.php)
+        - echo $res
     - stage: apache
       php: 7.2
       before_script:
@@ -51,4 +72,11 @@ jobs:
         - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
-        - ./ci/apache-test.sh
+        - res=$(php src/test.php)
+        - echo $res
+        - res=$(php src/index.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/test.php)
+        - echo $res
+        - res=$(curl http://127.0.0.1/src/index.php)
+        - echo $res
