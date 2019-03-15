@@ -4,39 +4,51 @@ dist: xenial
 jobs:
   include:
     - stage: syntax
-      matrix:
-        include:
-          - php: 5.6
-          - php: 7.0
-          - php: 7.1
-          - php: 7.2
+      php: 5.6
       before_script: php --version
       script: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+    - stage: syntax
+      php: 7.0
+      before_script: php --version
+      script: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+    - stage: syntax
+      php: 7.1
+      before_script: php --version
+      script: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+    - stage: syntax
+      php: 7.2
+      before_script: php --version
+      script: find src -name "*.php" -print0 | xargs -0 -n1 php -l
+
     - stage: apache
-      matrix:
-        include:
-          - php: 5.6
-          - php: 7.0
-          - php: 7.1
-          - php: 7.2
+      php: 5.6
       before_script:
-        - sudo apt-get update
-        - sudo apt-get install apache2 libapache2-mod-fastcgi
-        - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-        - sudo a2enmod rewrite actions fastcgi alias
-        - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-        - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-        - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-        - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-        - sudo cp -f ci/000-default.conf /etc/apache2/sites-available/000-default.conf
-        - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
-        - sudo service apache2 restart
+        - sudo chmod +x ci/apache.sh
+        - sudo chmod +x ci/apache-test.sh
+        - sudo ./ci/apache.sh
       script:
-        - res=$(php src/test.php)
-        - echo $res
-        - res=$(php src/index.php)
-        - echo $res
-        - res=$(curl http://127.0.0.1/src/test.php)
-        - echo $res
-        - res=$(curl http://127.0.0.1/src/index.php)
-        - echo $res
+        - ./ci/apache-test.sh
+    - stage: apache
+      php: 7.0
+      before_script:
+        - sudo chmod +x ci/apache.sh
+        - sudo chmod +x ci/apache-test.sh
+        - sudo ./ci/apache.sh
+      script:
+        - ./ci/apache-test.sh
+    - stage: apache
+      php: 7.1
+      before_script:
+        - sudo chmod +x ci/apache.sh
+        - sudo chmod +x ci/apache-test.sh
+        - sudo ./ci/apache.sh
+      script:
+        - ./ci/apache-test.sh
+    - stage: apache
+      php: 7.2
+      before_script:
+        - sudo chmod +x ci/apache.sh
+        - sudo chmod +x ci/apache-test.sh
+        - sudo ./ci/apache.sh
+      script:
+        - ./ci/apache-test.sh
