@@ -24,7 +24,6 @@ jobs:
       php: 5.6
       before_script:
         - sudo chmod +x ci/apache.sh
-        - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
         - res=$(php src/test.php)
@@ -39,7 +38,6 @@ jobs:
       php: 7.0
       before_script:
         - sudo chmod +x ci/apache.sh
-        - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
         - res=$(php src/test.php)
@@ -54,7 +52,6 @@ jobs:
       php: 7.1
       before_script:
         - sudo chmod +x ci/apache.sh
-        - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
         - res=$(php src/test.php)
@@ -69,7 +66,6 @@ jobs:
       php: 7.2
       before_script:
         - sudo chmod +x ci/apache.sh
-        - sudo chmod +x ci/apache-test.sh
         - sudo ./ci/apache.sh
       script:
         - res=$(php src/test.php)
