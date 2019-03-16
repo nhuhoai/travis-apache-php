@@ -34,6 +34,7 @@ jobs:
         - echo $res
         - res=$(curl http://127.0.0.1/src/index.php)
         - echo $res
+        - cat apache-error.log
     - stage: apache
       php: 7.0
       before_script:
@@ -48,6 +49,7 @@ jobs:
         - echo $res
         - res=$(curl http://127.0.0.1/src/index.php)
         - echo $res
+        - cat apache-error.log
     - stage: apache
       php: 7.1
       before_script:
@@ -62,6 +64,7 @@ jobs:
         - echo $res
         - res=$(curl http://127.0.0.1/src/index.php)
         - echo $res
+        - cat apache-error.log
     - stage: apache
       php: 7.2
       before_script:
@@ -76,3 +79,4 @@ jobs:
         - echo $res
         - res=$(curl http://127.0.0.1/src/index.php)
         - echo $res
+        - cat apache-error.log
